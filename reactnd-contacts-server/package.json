@@ -9,9 +9,9 @@
   },
   "scripts": {
     "start": "node server.js",
-    "clean": "rm -rf www && mkdir www",
-    "build": "npm run clean && cp -rf client/ www/client && cp -rf node_modules www/node_modules && cp -rf public/ www/public && cp config.js contacts.js server.js package.json www",
-    "zip": "npm run build && cd www && zip -r -D ../app.zip *",
-    "deploy": "chmod +x ./bin/deploy.sh"
+    "clean": "rd /s /q \"www\" && mkdir \"www\"",
+    "build": "xcopy  \"client\" \"www/client\" /s && xcopy \"node_modules\" \"www/node_modules\" /s && xcopy \"public\" \"www/public\" /s && for %I in (\"config.js\" \"contacts.js\" \"server.js\" \"package.json\") do xcopy %I \"www\" ",
+    "zip": "yarn clean && yarn build && set TERM=cd www && 7z a -tzip -r ../app.zip *",
+    "deploy": "sh \"bin/deploy.sh\""
   }
 }
